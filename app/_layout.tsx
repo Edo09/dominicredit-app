@@ -1,7 +1,10 @@
 import { useFonts } from 'expo-font';
+
 import { Stack } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '../src/context/AuthContext';
+
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -17,12 +20,14 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(public)" />
-        <Stack.Screen name="(auth)" />
-      </Stack>
-    </AuthProvider>
+    <SafeAreaProvider>
+      <AuthProvider>
+        <Stack initialRouteName="index" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#0a0a0a', flex: 1 } }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(public)" />
+          <Stack.Screen name="(auth)" />
+        </Stack>
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }

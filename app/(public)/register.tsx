@@ -1,13 +1,12 @@
 import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  View
 } from 'react-native';
 import Button from '../../src/components/common/Button';
 import Input from '../../src/components/common/Input';
@@ -74,56 +73,72 @@ export default function RegisterScreen() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+      style={{ flex: 1, backgroundColor: '#09090b' }} // bg-neutral-950
     >
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerClassName="flex-grow px-6 py-12 "
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.header}>
-          <Text style={styles.title}>Crear Cuenta</Text>
-          <Text style={styles.subtitle}>Regístrate para comenzar</Text>
+        {/* Logo/Brand Area */}
+        <View className="items-center my-8">
+          <View className="bg-orange-600 px-5 py-3 rounded-lg">
+            <Text className="text-white text-lg font-bold tracking-wider">DOMINICREDIT</Text>
+          </View>
         </View>
 
-        <View style={styles.form}>
+        <View className="mb-8 items-center">
+          <Text className="text-3xl font-bold text-white mb-2 text-center">Crear Cuenta</Text>
+          <Text className="text-base text-neutral-400 text-center">Regístrate para comenzar</Text>
+        </View>
+
+        <View className="w-full">
           <Input
             label="Nombre completo"
+            labelColor='#A3A3A3'
             value={formData.name}
             onChangeText={(value) => updateField('name', value)}
             placeholder="Juan Pérez"
             error={errors.name}
             editable={!isLoading}
+            className="mb-4"
           />
 
           <Input
             label="Email"
             value={formData.email}
+            labelColor='#A3A3A3'
             onChangeText={(value) => updateField('email', value)}
             placeholder="correo@ejemplo.com"
             keyboardType="email-address"
             autoCapitalize="none"
             error={errors.email}
             editable={!isLoading}
+            className="mb-4"
           />
 
           <Input
             label="Contraseña"
             value={formData.password}
+            labelColor='#A3A3A3'
             onChangeText={(value) => updateField('password', value)}
             placeholder="Mínimo 8 caracteres"
             secureTextEntry
             error={errors.password}
             editable={!isLoading}
+            className="mb-4"
           />
 
           <Input
             label="Confirmar contraseña"
+            labelColor='#A3A3A3'
             value={formData.confirmPassword}
             onChangeText={(value) => updateField('confirmPassword', value)}
             placeholder="Repite tu contraseña"
             secureTextEntry
             error={errors.confirmPassword}
             editable={!isLoading}
+            className="mb-4"
           />
 
           <Button
@@ -131,59 +146,24 @@ export default function RegisterScreen() {
             onPress={handleRegister}
             disabled={isLoading}
             loading={isLoading}
+            className="bg-orange-600 rounded-xl py-4 mt-2 mb-6 shadow-lg"
           />
 
-          <View style={styles.loginContainer}>
-            <Text style={styles.loginText}>¿Ya tienes una cuenta? </Text>
-            <Link href="/(public)/login">
-              <Text style={styles.loginLink}>Inicia sesión</Text>
+          <View className="flex-row justify-center mt-6">
+            <Text className="text-neutral-400 text-sm">¿Ya tienes una cuenta? </Text>
+            <Link href="/(public)/login" replace>
+              <Text className="text-orange-400 text-sm font-semibold">Inicia sesión</Text>
             </Link>
           </View>
+        </View>
+
+        {/* Footer */}
+        <View className="mt-auto pt-10 items-center">
+          <Text className="text-neutral-500 text-xs italic text-center">
+            La institución financiera del pueblo dominicano
+          </Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-    paddingVertical: 48,
-  },
-  header: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-  },
-  form: {
-    width: '100%',
-  },
-  loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 24,
-  },
-  loginText: {
-    color: '#666',
-    fontSize: 14,
-  },
-  loginLink: {
-    color: '#007AFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-});

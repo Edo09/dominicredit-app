@@ -11,11 +11,11 @@ export default function AuthLayout() {
     if (!isLoading && !isAuthenticated) {
       router.replace('/(public)/login');
     }
-  }, [isAuthenticated, isLoading]);
+  }, [isAuthenticated, isLoading, router]);
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1a1a1a' }}>
         <ActivityIndicator size="large" color="#007AFF" />
       </View>
     );

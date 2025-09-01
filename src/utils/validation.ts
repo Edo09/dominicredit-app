@@ -16,8 +16,8 @@ export const validatePassword = (password: string): string | null => {
     return 'La contraseña es requerida';
   }
   
-  if (password.length < 8) {
-    return 'La contraseña debe tener al menos 8 caracteres';
+  if (password.length < 3) {
+    return 'La contraseña debe tener al menos 3 caracteres';
   }
   
   // Opcional: validación más estricta

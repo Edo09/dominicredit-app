@@ -1,7 +1,7 @@
 import { Stack, useRouter } from 'expo-router';
 import { useEffect } from 'react';
-
 import { useAuth } from '../../src/context/AuthContext';
+import '../globals.css';
 
 export default function PublicLayout() {
   const { isAuthenticated } = useAuth();
@@ -11,12 +11,14 @@ export default function PublicLayout() {
     if (isAuthenticated) {
       router.replace('/(auth)/home');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router]);
 
   return (
-    <Stack screenOptions={{ 
+    <Stack initialRouteName="login" screenOptions={{ 
       headerShown: false,
-      animation: 'slide_from_right'
+      animation: 'default',
+      contentStyle: { backgroundColor: '#0a0a0a', flex: 1 },
+
     }}>
       <Stack.Screen name="login" />
       <Stack.Screen name="register" />
